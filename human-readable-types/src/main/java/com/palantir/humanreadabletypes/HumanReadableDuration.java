@@ -67,6 +67,9 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
         return suffixes;
     }
 
+    private final long count;
+    private final TimeUnit unit;
+    
     /**
      * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#NANOSECONDS}.
      *
@@ -150,9 +153,6 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
 
         return new HumanReadableDuration(count, unit);
     }
-
-    private final long count;
-    private final TimeUnit unit;
 
     private HumanReadableDuration(long count, TimeUnit unit) {
         this.count = count;
