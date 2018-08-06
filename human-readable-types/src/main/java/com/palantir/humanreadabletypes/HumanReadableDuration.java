@@ -6,6 +6,7 @@ package com.palantir.humanreadabletypes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -16,7 +17,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class HumanReadableDuration implements Comparable<HumanReadableDuration> {
+public final class HumanReadableDuration implements Comparable<HumanReadableDuration>, Serializable {
+    /**
+     * Serialization version.
+     */
+    private static final long serialVersionUID = 4215573187492209716L;
+
+    /**
+     * The pattern for parsing duration strings.
+     */
     private static final Pattern DURATION_PATTERN = Pattern.compile("(\\d+)\\s*(\\S+)");
 
     private static final Map<String, TimeUnit> SUFFIXES = createSuffixes();
@@ -47,34 +56,76 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
         return suffixes;
     }
 
+    /**
+     * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#NANOSECONDS}.
+     *
+     * @param count the number of nanoseconds
+     */
     public static HumanReadableDuration nanoseconds(long count) {
         return new HumanReadableDuration(count, TimeUnit.NANOSECONDS);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#MICROSECONDS}.
+     *
+     * @param count the number of microseconds
+     */
     public static HumanReadableDuration microseconds(long count) {
         return new HumanReadableDuration(count, TimeUnit.MICROSECONDS);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#MILLISECONDS}.
+     *
+     * @param count the number of milliseconds
+     */
     public static HumanReadableDuration milliseconds(long count) {
         return new HumanReadableDuration(count, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#SECONDS}.
+     *
+     * @param count the number of seconds
+     */
     public static HumanReadableDuration seconds(long count) {
         return new HumanReadableDuration(count, TimeUnit.SECONDS);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#MINUTES}.
+     *
+     * @param count the number of minutes
+     */
     public static HumanReadableDuration minutes(long count) {
         return new HumanReadableDuration(count, TimeUnit.MINUTES);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#HOURS}.
+     *
+     * @param count the number of hours
+     */
     public static HumanReadableDuration hours(long count) {
         return new HumanReadableDuration(count, TimeUnit.HOURS);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#DAYS}.
+     *
+     * @param count the number of days
+     */
     public static HumanReadableDuration days(long count) {
         return new HumanReadableDuration(count, TimeUnit.DAYS);
     }
 
+    /**
+     * Constructs a new {@link HumanReadableByteString} from the provided string representation.
+     *
+     * @param duration the string HumanReadableDuration of this duration
+     * @return the parsed {@link HumanReadableDuration}
+     * @throws IllegalArgumentException if the provided duration is invalid
+     */
     @JsonCreator
     public static HumanReadableDuration valueOf(String duration) {
         final Matcher matcher = DURATION_PATTERN.matcher(duration);
@@ -97,42 +148,72 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
         this.unit = Preconditions.checkNotNull(unit, "unit must not be null");
     }
 
+    /**
+     * The quantity of this duration in {@link TimeUnit time units}.
+     */
     public long getQuantity() {
         return count;
     }
 
+    /**
+     * The {@link TimeUnit time unit} of this duration.
+     */
     public TimeUnit getUnit() {
         return unit;
     }
 
+    /**
+     * Converts this duration to the total length in nanoseconds expressed as a {@code long}.
+     */
     public long toNanoseconds() {
         return TimeUnit.NANOSECONDS.convert(count, unit);
     }
 
+    /**
+     * Converts this duration to the total length in microseconds expressed as a {@code long}.
+     */
     public long toMicroseconds() {
         return TimeUnit.MICROSECONDS.convert(count, unit);
     }
 
+    /**
+     * Converts this duration to the total length in milliseconds expressed as a {@code long}.
+     */
     public long toMilliseconds() {
         return TimeUnit.MILLISECONDS.convert(count, unit);
     }
 
+    /**
+     * Converts this duration to the total length in seconds expressed as a {@code long}.
+     */
     public long toSeconds() {
         return TimeUnit.SECONDS.convert(count, unit);
     }
 
+    /**
+     * Converts this duration to the total length in minutes expressed as a {@code long}.
+     */
     public long toMinutes() {
         return TimeUnit.MINUTES.convert(count, unit);
     }
 
+    /**
+     * Converts this duration to the total length in hours expressed as a {@code long}.
+     */
     public long toHours() {
         return TimeUnit.HOURS.convert(count, unit);
     }
 
+    /**
+     * Converts this duration to the total length in days expressed as a {@code long}.
+     */
     public long toDays() {
         return TimeUnit.DAYS.convert(count, unit);
     }
 
+    /**
+     * Converts this duration to an equivalent {@link Duration}.
+     */
     public Duration toJavaDuration() {
         return Duration.of(count, chronoUnit(unit));
     }
@@ -169,15 +250,41 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
         }
     }
 
+    /**
+     * Compares this duration to the specified {@code HumanReadableDuration}.
+     * <p>
+     * The comparison is based on the total length of the durations.
+     * It is "consistent with equals", as defined by {@link Comparable}.
+     *
+     * @param otherDuration  the other duration to compare to, not null
+     * @return the comparator value, negative if less, positive if greater
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public int compareTo(HumanReadableDuration otherDuration) {
+        if (unit == otherDuration.unit) {
+            return Long.compare(count, otherDuration.count);
+        }
+
+        return Long.compare(toNanoseconds(), otherDuration.toNanoseconds());
+    }
+
+    /**
+     * Checks if this duration is equal to the specified {@code HumanReadableDuration}.
+     * <p>
+     * The comparison is based on the total length of the durations.
+     *
+     * @param otherDuration  the other duration, null returns false
+     * @return true if the other duration is equal to this one
+     */
+    @Override
+    public boolean equals(Object otherDuration) {
+        if (this == otherDuration) {
             return true;
         }
-        if ((obj == null) || (getClass() != obj.getClass())) {
+        if ((otherDuration == null) || (getClass() != otherDuration.getClass())) {
             return false;
         }
-        final HumanReadableDuration duration = (HumanReadableDuration) obj;
+        final HumanReadableDuration duration = (HumanReadableDuration) otherDuration;
         if (unit == duration.unit) {
             return count == duration.count;
         }
@@ -185,11 +292,21 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
 
     }
 
+    /**
+     * A hash code for this duration.
+     *
+     * @return a suitable hash code
+     */
     @Override
     public int hashCode() {
         return toJavaDuration().hashCode();
     }
 
+    /**
+     * A human-readable string representation of this duration.
+     *
+     * @return a human-readable string representation of this duration, not null
+     */
     @Override
     @JsonValue
     public String toString() {
@@ -198,14 +315,5 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
             units = units.substring(0, units.length() - 1);
         }
         return Long.toString(count) + ' ' + units;
-    }
-
-    @Override
-    public int compareTo(HumanReadableDuration other) {
-        if (unit == other.unit) {
-            return Long.compare(count, other.count);
-        }
-
-        return Long.compare(toNanoseconds(), other.toNanoseconds());
     }
 }

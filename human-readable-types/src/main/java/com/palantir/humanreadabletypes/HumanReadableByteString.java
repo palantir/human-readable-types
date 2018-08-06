@@ -17,13 +17,22 @@
 package com.palantir.humanreadabletypes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class HumanReadableByteString implements Comparable<HumanReadableByteString> {
+public final class HumanReadableByteString implements Comparable<HumanReadableByteString>, Serializable {
+    /**
+     * Serialization version.
+     */
+    private static final long serialVersionUID = -1847327625440651894L;
+
+    /**
+     * The pattern for parsing byte strings.
+     */
     private static final Pattern BYTE_STRING_PATTERN = Pattern.compile("([0-9]+)\\s?([a-rt-z]+)?s?");
 
     private static final Map<String, ByteUnit> SUFFIXES = createSuffixes();
@@ -50,30 +59,68 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
         return suffixes;
     }
 
+    /**
+     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#BYTE}.
+     *
+     * @param size the number of bytes
+     */
     public static HumanReadableByteString bytes(long size) {
         return new HumanReadableByteString(size, ByteUnit.BYTE);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#KiB}.
+     *
+     * @param size the number of kibibytes
+     */
     public static HumanReadableByteString kibibytes(long size) {
         return new HumanReadableByteString(size, ByteUnit.KiB);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#MiB}.
+     *
+     * @param size the number of mebibytes
+     */
     public static HumanReadableByteString mebibytes(long size) {
         return new HumanReadableByteString(size, ByteUnit.MiB);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#GiB}.
+     *
+     * @param size the number of gibibytes
+     */
     public static HumanReadableByteString gibibytes(long size) {
         return new HumanReadableByteString(size, ByteUnit.GiB);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#TiB}.
+     *
+     * @param size the number of tebibytes
+     */
     public static HumanReadableByteString tebibytes(long size) {
         return new HumanReadableByteString(size, ByteUnit.TiB);
     }
 
+    /**
+     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#PiB}.
+     *
+     * @param size the number of pebibytes
+     */
     public static HumanReadableByteString pebibytes(long size) {
         return new HumanReadableByteString(size, ByteUnit.PiB);
     }
 
+    /**
+     * Constructs a new {@link HumanReadableByteString} from the provided string representation.
+     *
+     * @param byteString the string representation of this byte string
+     * @return the parsed {@link HumanReadableByteString}
+     * @throws IllegalArgumentException if the provided byte string is invalid
+     * @throws NumberFormatException if the provided size cannot be parsed
+     */
     @JsonCreator
     public static HumanReadableByteString valueOf(String byteString) {
         String lower = byteString.toLowerCase(Locale.ROOT).trim();
@@ -109,42 +156,83 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
         this.unit = Preconditions.checkNotNull(unit, "unit must not be null");
     }
 
-    /** The size of this byte string in {@link HumanReadableByteString.ByteUnit}s. */
+    /**
+     * The size of this byte string in {@link HumanReadableByteString.ByteUnit binary units}.
+     */
     public long getSize() {
         return size;
     }
 
-    /** The binary unit for this byte string. */
+    /**
+     * The {@link ByteUnit binary unit} of this byte string.
+     */
     public ByteUnit getUnit() {
         return unit;
     }
 
-    /** The number of bytes represented by this byte string. */
+    /**
+     * The total number of bytes represented by this byte string.
+     */
     public long toBytes() {
         return unit.toBytes(size);
     }
 
+    /**
+     * Compares this byte string to the specified {@code HumanReadableByteString}.
+     * <p>
+     * The comparison is based on the total number of bytes.
+     * It is "consistent with equals", as defined by {@link Comparable}.
+     *
+     * @param otherByteString  the other byte string to compare to, not null
+     * @return the comparator value, negative if less, positive if greater
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public int compareTo(HumanReadableByteString otherByteString) {
+        if (unit == otherByteString.unit) {
+            return Long.compare(size, otherByteString.size);
+        }
+        return Long.compare(toBytes(), otherByteString.toBytes());
+    }
+
+    /**
+     * Checks if this byte string is equal to the specified {@code HumanReadableByteString}.
+     * <p>
+     * The comparison is based on the total length of the durations.
+     *
+     * @param otherByteString  the other byte string, null returns false
+     * @return true if the other byte string is equal to this one
+     */
+    @Override
+    public boolean equals(Object otherByteString) {
+        if (this == otherByteString) {
             return true;
         }
-        if ((obj == null) || (getClass() != obj.getClass())) {
+        if ((otherByteString == null) || (getClass() != otherByteString.getClass())) {
             return false;
         }
-        final HumanReadableByteString other = (HumanReadableByteString) obj;
+        final HumanReadableByteString other = (HumanReadableByteString) otherByteString;
         if (unit == other.unit) {
             return size == other.size;
         }
         return toBytes() == other.toBytes();
     }
 
+    /**
+     * A hash code for this byte string.
+     *
+     * @return a suitable hash code
+     */
     @Override
     public int hashCode() {
         long bytes = toBytes();
         return (int) (bytes ^ (bytes >>> 32));
     }
 
+    /**
+     * A human-readable string representation of this byte string.
+     *
+     * @return a human-readable string representation of this byte string, not null
+     */
     @Override
     public String toString() {
         String units = unit.toString().toLowerCase(Locale.ENGLISH);
@@ -152,14 +240,6 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
             units = units.substring(0, units.length() - 1);
         }
         return Long.toString(size) + ' ' + units;
-    }
-
-    @Override
-    public int compareTo(HumanReadableByteString other) {
-        if (unit == other.unit) {
-            return Long.compare(size, other.size);
-        }
-        return Long.compare(toBytes(), other.toBytes());
     }
 
     enum ByteUnit {

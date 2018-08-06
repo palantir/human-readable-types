@@ -47,31 +47,31 @@ final class Preconditions {
         return reference;
     }
 
-    private static String format(String template, Object... args) {
-        template = String.valueOf(template); // null -> "null"
+    private static String format(String templateString, Object... args) {
+        String template = String.valueOf(templateString); // null -> "null"
 
         // start substituting the arguments into the '%s' placeholders
         StringBuilder builder = new StringBuilder(template.length() + 16 * args.length);
         int templateStart = 0;
-        int i = 0;
-        while (i < args.length) {
+        int index = 0;
+        while (index < args.length) {
             int placeholderStart = template.indexOf("%s", templateStart);
             if (placeholderStart == -1) {
                 break;
             }
             builder.append(template.substring(templateStart, placeholderStart));
-            builder.append(args[i++]);
+            builder.append(args[index++]);
             templateStart = placeholderStart + 2;
         }
         builder.append(template.substring(templateStart));
 
         // if we run out of placeholders, append the extra args in square braces
-        if (i < args.length) {
+        if (index < args.length) {
             builder.append(" [");
-            builder.append(args[i++]);
-            while (i < args.length) {
+            builder.append(args[index++]);
+            while (index < args.length) {
                 builder.append(", ");
-                builder.append(args[i++]);
+                builder.append(args[index++]);
             }
             builder.append(']');
         }
