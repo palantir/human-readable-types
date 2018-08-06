@@ -27,8 +27,8 @@ import java.util.regex.Pattern;
 /**
  * A human-readable type for binary quantities.
  * <p>
- * This class allows for parsing strings representing binary quantities into usable byte quantities. Strings should match
- * {@link HumanReadableByteString#BYTE_STRING_PATTERN} which represents the numeric binary quantity with a suffix
+ * This class allows for parsing strings representing binary quantities into usable byte quantities. Strings should
+ * match {@link HumanReadableByteString#BYTE_STRING_PATTERN} which represents the numeric binary quantity with a suffix
  * representing the {@link ByteUnit} to use for this byte string. Suffixes may be pluralized or not regardless of the
  * actual numeric quantity.
  * <p>
