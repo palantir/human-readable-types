@@ -1,14 +1,18 @@
 # Human Readable Types
 
+[![Build Status](https://circleci.com/gh/palantir/human-readable-types.svg?style=shield)](https://circleci.com/gh/palantir/human-readable-types)
+[![JCenter Release](https://img.shields.io/github/release/palantir/human-readable-types.svg)](
+http://jcenter.bintray.com/com/palantir/human-readable-types/)
+
 This repository provides a collection of useful types that can be deserialized from human-readable strings. These types
 can be particularly useful for use in POJOs deserialized from configuration files where legibility is important.
 
 human-readable-types
 --------------------
-[![Build Status](https://circleci.com/gh/palantir/human-readable-types.svg?style=shield)](https://circleci.com/gh/palantir/human-readable-types)
-[![JCenter Release](https://img.shields.io/github/release/palantir/human-readable-types.svg)](
-http://jcenter.bintray.com/com/palantir/human-readable-types/)
 
+The following types are currently provided:
+* [HumanReadableByteString](human-readable-types/src/main/java/com/palantir/humanreadabletypes/HumanReadableByteString.java)
+* [HumanReadableDuration](human-readable-types/src/main/java/com/palantir/humanreadabletypes/HumanReadableDuration.java)
 
 ### Example Usage
 
