@@ -17,6 +17,17 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A human-readable type for durations.
+ * <p>
+ * This class allows for parsing strings representing durations into usable time quantities. Strings should match
+ * {@link HumanReadableDuration#DURATION_PATTERN} which represents the numeric duration value with a suffix representing
+ * the {@link TimeUnit} to use for this duration. Suffixes may be pluralized or not regardless of the actual numeric
+ * quantity.
+ * <p>
+ * All {@code equal}, {@code compareTo} and {@code hashCode} implementations assume normalized values, i.e. they work
+ * off of the total length of the duration. Therefore, {@code 60 seconds} would be equivalent to {@code 1 minute}.
+ */
 public final class HumanReadableDuration implements Comparable<HumanReadableDuration>, Serializable {
     /**
      * Serialization version.

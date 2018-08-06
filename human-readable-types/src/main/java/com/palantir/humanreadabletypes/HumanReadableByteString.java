@@ -24,6 +24,17 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A human-readable type for binary quantities.
+ * <p>
+ * This class allows for parsing strings representing binary quantities into usable byte quantities. Strings should match
+ * {@link HumanReadableByteString#BYTE_STRING_PATTERN} which represents the numeric binary quantity with a suffix
+ * representing the {@link ByteUnit} to use for this byte string. Suffixes may be pluralized or not regardless of the
+ * actual numeric quantity.
+ * <p>
+ * All {@code equal}, {@code compareTo} and {@code hashCode} implementations assume normalized values, i.e. they work
+ * off of the total number of bytes. Therefore, {@code 1024 bytes} would be equivalent to {@code 1 kibibyte}.
+ */
 public final class HumanReadableByteString implements Comparable<HumanReadableByteString>, Serializable {
     /**
      * Serialization version.
