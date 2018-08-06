@@ -70,6 +70,9 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
         return suffixes;
     }
 
+    private final long size;
+    private final ByteUnit unit;
+
     /**
      * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#BYTE}.
      *
@@ -159,9 +162,6 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
         }
     }
 
-    private final long size;
-    private final ByteUnit unit;
-
     private HumanReadableByteString(long size, ByteUnit unit) {
         this.size = size;
         this.unit = Preconditions.checkNotNull(unit, "unit must not be null");
@@ -208,7 +208,7 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
     /**
      * Checks if this byte string is equal to the specified {@code HumanReadableByteString}.
      * <p>
-     * The comparison is based on the total length of the durations.
+     * The comparison is based on the total number of bytes.
      *
      * @param otherByteString  the other byte string, null returns false
      * @return true if the other byte string is equal to this one
