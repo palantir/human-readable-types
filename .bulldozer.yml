@@ -1,0 +1,4 @@
+mode: whitelist
+strategy: squash
+deleteAfterMerge: true
+

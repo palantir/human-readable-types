@@ -1,1 +1,62 @@
-# human-readable-types
+# Human Readable Types
+
+This repository provides a collection of useful types that can be deserialized from human-readable strings. These types
+can be particularly useful for use in POJOs deserialized from configuration files where legibility is important.
+
+human-readable-types
+--------------------
+[![Build Status](https://circleci.com/gh/palantir/human-readable-types.svg?style=shield)](https://circleci.com/gh/palantir/human-readable-types)
+[![JCenter Release](https://img.shields.io/github/release/palantir/human-readable-types.svg)](
+http://jcenter.bintray.com/com/palantir/human-readable-types/)
+
+
+### Example Usage
+
+Maven artifacts are published to JCenter. Example Gradle dependency configuration:
+
+```groovy
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "com.palantir.human-readable-types:human-readable-types:$version"
+}
+```
+
+Using these types alongside [Jackson](https://github.com/FasterXML/jackson) and [Immutables](https://github.com/immutables/immutables)
+might look something like:
+
+```java
+package com.palantir.example;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.palantir.humanreadabletypes.HumanReadableByteString;
+import com.palantir.humanreadabletypes.HumanReadableDuration;
+import org.immutables.value.Value;
+
+@Value.Immutable
+@JsonDeserialize(as = ImmutableExampleConfiguration.class)
+public abstract class ExampleConfiguration {
+    
+    @JsonProperty("maximum-connect-timeout")
+    public abstract HumanReadableDuration getMaximumConnectTimeout();
+    
+    @JsonProperty("maximum-file-size")
+    public abstract HumanReadableByteString getMaximumFileSize();
+}
+
+```
+
+If this class were deserialized from some YAML file this may look something like:
+
+```yaml
+# example.yml
+maximum-connect-timeout: 2 minutes
+maximum-file-size: 10 mibibytes
+```
+
+License
+-------
+This repository is made available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).  

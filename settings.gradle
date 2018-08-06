@@ -1,0 +1,3 @@
+rootProject.name = 'human-readable-types'
+
+include 'human-readable-types'

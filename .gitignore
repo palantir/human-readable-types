@@ -1,22 +1,27 @@
-# Compiled class file
+# Gradle
 *.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
+.gradle
+build/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Eclipse
+.classpath
+.checkstyle
+.factorypath
+.project
+.settings
+bin/
+
+# Idea
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+generated_src/
+
+# Codegen
+.generated
+
+# Mac
+.DS_Store
