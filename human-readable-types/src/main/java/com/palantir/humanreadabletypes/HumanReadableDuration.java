@@ -69,7 +69,7 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
 
     private final long count;
     private final TimeUnit unit;
-    
+
     /**
      * Obtains a new {@link HumanReadableDuration} using {@link TimeUnit#NANOSECONDS}.
      *
