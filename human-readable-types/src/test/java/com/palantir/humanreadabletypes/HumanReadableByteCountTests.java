@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
-public final class HumanReadableByteStringTests {
+public final class HumanReadableByteCountTests {
 
     @Test
     public void testParseByte() {
@@ -58,46 +58,46 @@ public final class HumanReadableByteStringTests {
 
     @Test
     public void testInvalidString() {
-        assertThatThrownBy(() -> HumanReadableByteString.valueOf("Ten bytes"))
+        assertThatThrownBy(() -> HumanReadableByteCount.valueOf("Ten bytes"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Invalid byte string: Ten bytes");
     }
 
     @Test
     public void testInvalidUnits() {
-        assertThatThrownBy(() -> HumanReadableByteString.valueOf("10 kilobytes"))
+        assertThatThrownBy(() -> HumanReadableByteCount.valueOf("10 kilobytes"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Invalid byte string: 10 kilobytes. Wrong byte unit");
     }
 
     @Test
     public void testEquals() {
-        assertThat(HumanReadableByteString.bytes(1024).equals(HumanReadableByteString.kibibytes(1))).isTrue();
-        assertThat(HumanReadableByteString.bytes(1).equals(HumanReadableByteString.valueOf("1"))).isTrue();
-        assertThat(HumanReadableByteString.mebibytes(1024).equals(HumanReadableByteString.gibibytes(1))).isTrue();
-        assertThat(HumanReadableByteString.tebibytes(1024).equals(HumanReadableByteString.pebibytes(1))).isTrue();
-        assertThat(HumanReadableByteString.bytes(1024).equals(HumanReadableByteString.mebibytes(1))).isFalse();
+        assertThat(HumanReadableByteCount.bytes(1024).equals(HumanReadableByteCount.kibibytes(1))).isTrue();
+        assertThat(HumanReadableByteCount.bytes(1).equals(HumanReadableByteCount.valueOf("1"))).isTrue();
+        assertThat(HumanReadableByteCount.mebibytes(1024).equals(HumanReadableByteCount.gibibytes(1))).isTrue();
+        assertThat(HumanReadableByteCount.tebibytes(1024).equals(HumanReadableByteCount.pebibytes(1))).isTrue();
+        assertThat(HumanReadableByteCount.bytes(1024).equals(HumanReadableByteCount.mebibytes(1))).isFalse();
     }
 
     @Test
     public void testCompareTo() {
-        assertThat(HumanReadableByteString.bytes(2048).compareTo(HumanReadableByteString.kibibytes(1))).isEqualTo(1);
-        assertThat(HumanReadableByteString.bytes(1024).compareTo(HumanReadableByteString.kibibytes(1))).isEqualTo(0);
-        assertThat(HumanReadableByteString.mebibytes(1).compareTo(HumanReadableByteString.gibibytes(1))).isEqualTo(-1);
+        assertThat(HumanReadableByteCount.bytes(2048).compareTo(HumanReadableByteCount.kibibytes(1))).isEqualTo(1);
+        assertThat(HumanReadableByteCount.bytes(1024).compareTo(HumanReadableByteCount.kibibytes(1))).isEqualTo(0);
+        assertThat(HumanReadableByteCount.mebibytes(1).compareTo(HumanReadableByteCount.gibibytes(1))).isEqualTo(-1);
     }
 
     @Test
     public void testToString() {
-        assertThat(HumanReadableByteString.valueOf("1 byte").toString()).isEqualTo("1 byte");
-        assertThat(HumanReadableByteString.valueOf("1 bytes").toString()).isEqualTo("1 byte");
-        assertThat(HumanReadableByteString.valueOf("2 byte").toString()).isEqualTo("2 bytes");
-        assertThat(HumanReadableByteString.valueOf("2 bytes").toString()).isEqualTo("2 bytes");
+        assertThat(HumanReadableByteCount.valueOf("1 byte").toString()).isEqualTo("1 byte");
+        assertThat(HumanReadableByteCount.valueOf("1 bytes").toString()).isEqualTo("1 byte");
+        assertThat(HumanReadableByteCount.valueOf("2 byte").toString()).isEqualTo("2 bytes");
+        assertThat(HumanReadableByteCount.valueOf("2 bytes").toString()).isEqualTo("2 bytes");
     }
 
-    private static void assetStringsEqualToBytes(long expectedBytes, String... byteStrings) {
-        assertThat(Arrays.stream(byteStrings)
-                .map(HumanReadableByteString::valueOf)
-                .map(HumanReadableByteString::toBytes)
+    private static void assetStringsEqualToBytes(long expectedBytes, String... byteCounts) {
+        assertThat(Arrays.stream(byteCounts)
+                .map(HumanReadableByteCount::valueOf)
+                .map(HumanReadableByteCount::toBytes)
                 .collect(Collectors.toList())
         ).allMatch(Predicate.isEqual(expectedBytes));
     }
