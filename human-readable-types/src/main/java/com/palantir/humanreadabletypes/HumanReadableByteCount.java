@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * A human-readable type for binary quantities.
  * <p>
  * This class allows for parsing strings representing binary quantities into usable byte quantities. Strings should
- * match {@link HumanReadableByteCount#BYTE_STRING_PATTERN} which represents the numeric binary quantity with a suffix
+ * match {@link HumanReadableByteCount#BYTE_COUNT_PATTERN} which represents the numeric binary quantity with a suffix
  * representing the {@link ByteUnit} to use for this byte string. Suffixes may be pluralized or not regardless of the
  * actual numeric quantity.
  * <p>
@@ -44,7 +44,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
     /**
      * The pattern for parsing byte strings.
      */
-    private static final Pattern BYTE_STRING_PATTERN = Pattern.compile("([0-9]+)\\s?([a-rt-z]+)?s?");
+    private static final Pattern BYTE_COUNT_PATTERN = Pattern.compile("([0-9]+)\\s?([a-rt-z]+)?s?");
 
     private static final Map<String, ByteUnit> SUFFIXES = createSuffixes();
 
@@ -140,7 +140,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         String lower = byteCount.toLowerCase(Locale.ROOT).trim();
 
         try {
-            Matcher matcher = BYTE_STRING_PATTERN.matcher(lower);
+            Matcher matcher = BYTE_COUNT_PATTERN.matcher(lower);
 
             Preconditions.checkArgument(matcher.matches(), "Invalid byte string: %s", byteCount);
 
