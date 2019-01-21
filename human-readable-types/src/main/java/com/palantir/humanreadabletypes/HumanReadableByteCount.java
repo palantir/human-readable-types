@@ -28,14 +28,14 @@ import java.util.regex.Pattern;
  * A human-readable type for binary quantities.
  * <p>
  * This class allows for parsing strings representing binary quantities into usable byte quantities. Strings should
- * match {@link HumanReadableByteString#BYTE_STRING_PATTERN} which represents the numeric binary quantity with a suffix
+ * match {@link HumanReadableByteCount#BYTE_STRING_PATTERN} which represents the numeric binary quantity with a suffix
  * representing the {@link ByteUnit} to use for this byte string. Suffixes may be pluralized or not regardless of the
  * actual numeric quantity.
  * <p>
  * All {@code equal}, {@code compareTo} and {@code hashCode} implementations assume normalized values, i.e. they work
  * off of the total number of bytes. Therefore, {@code 1024 bytes} would be equivalent to {@code 1 kibibyte}.
  */
-public final class HumanReadableByteString implements Comparable<HumanReadableByteString>, Serializable {
+public final class HumanReadableByteCount implements Comparable<HumanReadableByteCount>, Serializable {
     /**
      * Serialization version.
      */
@@ -74,84 +74,84 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
     private final ByteUnit unit;
 
     /**
-     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#BYTE}.
+     * Obtains a new {@link HumanReadableByteCount} using {@link ByteUnit#BYTE}.
      *
      * @param size the number of bytes
      */
-    public static HumanReadableByteString bytes(long size) {
-        return new HumanReadableByteString(size, ByteUnit.BYTE);
+    public static HumanReadableByteCount bytes(long size) {
+        return new HumanReadableByteCount(size, ByteUnit.BYTE);
     }
 
     /**
-     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#KiB}.
+     * Obtains a new {@link HumanReadableByteCount} using {@link ByteUnit#KiB}.
      *
      * @param size the number of kibibytes
      */
-    public static HumanReadableByteString kibibytes(long size) {
-        return new HumanReadableByteString(size, ByteUnit.KiB);
+    public static HumanReadableByteCount kibibytes(long size) {
+        return new HumanReadableByteCount(size, ByteUnit.KiB);
     }
 
     /**
-     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#MiB}.
+     * Obtains a new {@link HumanReadableByteCount} using {@link ByteUnit#MiB}.
      *
      * @param size the number of mebibytes
      */
-    public static HumanReadableByteString mebibytes(long size) {
-        return new HumanReadableByteString(size, ByteUnit.MiB);
+    public static HumanReadableByteCount mebibytes(long size) {
+        return new HumanReadableByteCount(size, ByteUnit.MiB);
     }
 
     /**
-     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#GiB}.
+     * Obtains a new {@link HumanReadableByteCount} using {@link ByteUnit#GiB}.
      *
      * @param size the number of gibibytes
      */
-    public static HumanReadableByteString gibibytes(long size) {
-        return new HumanReadableByteString(size, ByteUnit.GiB);
+    public static HumanReadableByteCount gibibytes(long size) {
+        return new HumanReadableByteCount(size, ByteUnit.GiB);
     }
 
     /**
-     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#TiB}.
+     * Obtains a new {@link HumanReadableByteCount} using {@link ByteUnit#TiB}.
      *
      * @param size the number of tebibytes
      */
-    public static HumanReadableByteString tebibytes(long size) {
-        return new HumanReadableByteString(size, ByteUnit.TiB);
+    public static HumanReadableByteCount tebibytes(long size) {
+        return new HumanReadableByteCount(size, ByteUnit.TiB);
     }
 
     /**
-     * Obtains a new {@link HumanReadableByteString} using {@link ByteUnit#PiB}.
+     * Obtains a new {@link HumanReadableByteCount} using {@link ByteUnit#PiB}.
      *
      * @param size the number of pebibytes
      */
-    public static HumanReadableByteString pebibytes(long size) {
-        return new HumanReadableByteString(size, ByteUnit.PiB);
+    public static HumanReadableByteCount pebibytes(long size) {
+        return new HumanReadableByteCount(size, ByteUnit.PiB);
     }
 
     /**
-     * Constructs a new {@link HumanReadableByteString} from the provided string representation.
+     * Constructs a new {@link HumanReadableByteCount} from the provided string representation.
      *
-     * @param byteString the string representation of this byte string
-     * @return the parsed {@link HumanReadableByteString}
+     * @param byteCount the string representation of this byte string
+     * @return the parsed {@link HumanReadableByteCount}
      * @throws IllegalArgumentException if the provided byte string is invalid
      * @throws NumberFormatException if the provided size cannot be parsed
      */
     @JsonCreator
-    public static HumanReadableByteString valueOf(String byteString) {
-        String lower = byteString.toLowerCase(Locale.ROOT).trim();
+    public static HumanReadableByteCount valueOf(String byteCount) {
+        String lower = byteCount.toLowerCase(Locale.ROOT).trim();
 
         try {
             Matcher matcher = BYTE_STRING_PATTERN.matcher(lower);
 
-            Preconditions.checkArgument(matcher.matches(), "Invalid byte string: %s", byteString);
+            Preconditions.checkArgument(matcher.matches(), "Invalid byte string: %s", byteCount);
 
             long size = Long.parseLong(matcher.group(1));
             String suffix = matcher.group(2);
 
             if (suffix != null && !SUFFIXES.containsKey(suffix)) {
-                throw new IllegalArgumentException("Invalid byte string: " + byteString + ". Wrong byte unit");
+                throw new IllegalArgumentException("Invalid byte string: " + byteCount + ". Wrong byte unit");
             }
 
-            return new HumanReadableByteString(size, suffix != null ? SUFFIXES.get(suffix) : ByteUnit.BYTE);
+            return new HumanReadableByteCount(size, suffix != null ? SUFFIXES.get(suffix) : ByteUnit.BYTE);
 
         } catch (NumberFormatException e) {
             String byteError = "Size must be specified as bytes (b), "
@@ -162,13 +162,13 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
         }
     }
 
-    private HumanReadableByteString(long size, ByteUnit unit) {
+    private HumanReadableByteCount(long size, ByteUnit unit) {
         this.size = size;
         this.unit = Preconditions.checkNotNull(unit, "unit must not be null");
     }
 
     /**
-     * The size of this byte string in {@link HumanReadableByteString.ByteUnit binary units}.
+     * The size of this byte string in {@link HumanReadableByteCount.ByteUnit binary units}.
      */
     public long getSize() {
         return size;
@@ -189,39 +189,39 @@ public final class HumanReadableByteString implements Comparable<HumanReadableBy
     }
 
     /**
-     * Compares this byte string to the specified {@code HumanReadableByteString}.
+     * Compares this byte string to the specified {@code HumanReadableByteCount}.
      * <p>
      * The comparison is based on the total number of bytes.
      * It is "consistent with equals", as defined by {@link Comparable}.
      *
-     * @param otherByteString  the other byte string to compare to, not null
+     * @param otherByteCount  the other byte string to compare to, not null
      * @return the comparator value, negative if less, positive if greater
      */
     @Override
-    public int compareTo(HumanReadableByteString otherByteString) {
-        if (unit == otherByteString.unit) {
-            return Long.compare(size, otherByteString.size);
+    public int compareTo(HumanReadableByteCount otherByteCount) {
+        if (unit == otherByteCount.unit) {
+            return Long.compare(size, otherByteCount.size);
         }
-        return Long.compare(toBytes(), otherByteString.toBytes());
+        return Long.compare(toBytes(), otherByteCount.toBytes());
     }
 
     /**
-     * Checks if this byte string is equal to the specified {@code HumanReadableByteString}.
+     * Checks if this byte string is equal to the specified {@code HumanReadableByteCount}.
      * <p>
      * The comparison is based on the total number of bytes.
      *
-     * @param otherByteString  the other byte string, null returns false
+     * @param otherByteCount  the other byte string, null returns false
      * @return true if the other byte string is equal to this one
      */
     @Override
-    public boolean equals(Object otherByteString) {
-        if (this == otherByteString) {
+    public boolean equals(Object otherByteCount) {
+        if (this == otherByteCount) {
             return true;
         }
-        if ((otherByteString == null) || (getClass() != otherByteString.getClass())) {
+        if ((otherByteCount == null) || (getClass() != otherByteCount.getClass())) {
             return false;
         }
-        final HumanReadableByteString other = (HumanReadableByteString) otherByteString;
+        final HumanReadableByteCount other = (HumanReadableByteCount) otherByteCount;
         if (unit == other.unit) {
             return size == other.size;
         }

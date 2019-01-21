@@ -134,7 +134,7 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
     }
 
     /**
-     * Constructs a new {@link HumanReadableByteString} from the provided string representation.
+     * Constructs a new {@link HumanReadableByteCount} from the provided string representation.
      *
      * @param duration the string HumanReadableDuration of this duration
      * @return the parsed {@link HumanReadableDuration}

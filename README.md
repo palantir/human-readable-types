@@ -11,7 +11,7 @@ human-readable-types
 --------------------
 
 The following types are currently provided:
-* [HumanReadableByteString](human-readable-types/src/main/java/com/palantir/humanreadabletypes/HumanReadableByteString.java)
+* [HumanReadableByteCount](human-readable-types/src/main/java/com/palantir/humanreadabletypes/HumanReadableByteCount.java)
 * [HumanReadableDuration](human-readable-types/src/main/java/com/palantir/humanreadabletypes/HumanReadableDuration.java)
 
 ### Example Usage
@@ -36,7 +36,7 @@ package com.palantir.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.palantir.humanreadabletypes.HumanReadableByteString;
+import com.palantir.humanreadabletypes.HumanReadableByteCount;
 import com.palantir.humanreadabletypes.HumanReadableDuration;
 import org.immutables.value.Value;
 
@@ -48,7 +48,7 @@ public abstract class ExampleConfiguration {
     public abstract HumanReadableDuration getMaximumConnectTimeout();
     
     @JsonProperty("maximum-file-size")
-    public abstract HumanReadableByteString getMaximumFileSize();
+    public abstract HumanReadableByteCount getMaximumFileSize();
 }
 
 ```
