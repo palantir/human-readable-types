@@ -84,7 +84,7 @@ subprojects {
     sourceCompatibility = 1.8
 
     tasks.withType(JavaCompile) {
-        options.compilerArgs += ['-XepDisableWarningsInGeneratedCode', '-Werror']
+        options.compilerArgs += ['-Werror']
     }
 
     // Run `./gradlew test -Drecreate=true` to recreate all the expected

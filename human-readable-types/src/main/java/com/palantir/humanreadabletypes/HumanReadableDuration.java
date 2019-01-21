@@ -256,9 +256,8 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
                 return ChronoUnit.HOURS;
             case DAYS:
                 return ChronoUnit.DAYS;
-            default:
-                throw new IllegalArgumentException("Unknown TimeUnit constant");
         }
+        throw new IllegalArgumentException("Unknown TimeUnit constant");
     }
 
     /**
