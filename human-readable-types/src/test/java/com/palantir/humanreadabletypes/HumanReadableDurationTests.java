@@ -104,7 +104,6 @@ public final class HumanReadableDurationTests {
             String... durationStrings) {
         assertThat(Arrays.stream(durationStrings)
                 .map(HumanReadableDuration::valueOf)
-                .collect(Collectors.toList())
-        ).allMatch(duration -> duration.getQuantity() == expectedQuantity && duration.getUnit() == expectedTimeUnit);
+                .collect(Collectors.toList())).allMatch(duration -> duration.getQuantity() == expectedQuantity && duration.getUnit() == expectedTimeUnit);
     }
 }

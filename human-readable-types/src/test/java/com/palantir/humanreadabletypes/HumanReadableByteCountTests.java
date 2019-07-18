@@ -98,7 +98,6 @@ public final class HumanReadableByteCountTests {
         assertThat(Arrays.stream(byteCounts)
                 .map(HumanReadableByteCount::valueOf)
                 .map(HumanReadableByteCount::toBytes)
-                .collect(Collectors.toList())
-        ).allMatch(Predicate.isEqual(expectedBytes));
+                .collect(Collectors.toList())).allMatch(Predicate.isEqual(expectedBytes));
     }
 }
