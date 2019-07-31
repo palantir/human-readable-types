@@ -6,13 +6,13 @@ package com.palantir.humanreadabletypes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.palantir.logsafe.exceptions.SafeIllegalArgumentException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -240,7 +240,7 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
      * @return the converted unit, not null
      */
     private static ChronoUnit chronoUnit(TimeUnit unit) {
-        Objects.requireNonNull(unit, "unit");
+        com.palantir.logsafe.Preconditions.checkNotNull(unit, "unit");
         switch (unit) {
             case NANOSECONDS:
                 return ChronoUnit.NANOS;
@@ -257,7 +257,7 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
             case DAYS:
                 return ChronoUnit.DAYS;
         }
-        throw new IllegalArgumentException("Unknown TimeUnit constant");
+        throw new SafeIllegalArgumentException("Unknown TimeUnit constant");
     }
 
     /**
