@@ -1,3 +1,7 @@
+<p align="right">
+<a href="https://autorelease.general.dmz.palantir.tech/palantir/human-readable-types"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
+</p>
+
 # Human Readable Types
 
 [![Build Status](https://circleci.com/gh/palantir/human-readable-types.svg?style=shield)](https://circleci.com/gh/palantir/human-readable-types)
