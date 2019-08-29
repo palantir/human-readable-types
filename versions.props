@@ -3,5 +3,5 @@ com.google.code.findbugs:jsr305 = 3.0.2
 com.google.errorprone:error_prone_annotations = 2.3.3
 com.google.guava:guava = 27.0.1-jre
 junit:junit = 4.12
-org.assertj:* = 3.12.2
+org.assertj:* = 3.13.2
 org.checkerframework:checker-qual = 2.5.3
