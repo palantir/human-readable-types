@@ -57,7 +57,9 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         suffixes.put("kibibyte", ByteUnit.KiB);
         suffixes.put("m", ByteUnit.MiB);
         suffixes.put("mb", ByteUnit.MiB);
+        // Required for backwards compatibility. "mibibyte" isn't a real unit
         suffixes.put("mibibyte", ByteUnit.MiB);
+        suffixes.put("mebibyte", ByteUnit.MiB);
         suffixes.put("g", ByteUnit.GiB);
         suffixes.put("gb", ByteUnit.GiB);
         suffixes.put("gibibyte", ByteUnit.GiB);
