@@ -19,46 +19,50 @@ package com.palantir.humanreadabletypes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
 public final class HumanReadableDurationTests {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     public void testParseNanoseconds() {
-        assetStringsEqualToDuration(10, TimeUnit.NANOSECONDS, "10ns", "10 nanosecond", "10 nanoseconds");
+        assertStringsEqualToDuration(10, TimeUnit.NANOSECONDS, "10ns", "10 nanosecond", "10 nanoseconds");
     }
 
     @Test
     public void testParseMicroseconds() {
-        assetStringsEqualToDuration(12, TimeUnit.MICROSECONDS, "12us", "12 microsecond", "12 microseconds");
+        assertStringsEqualToDuration(12, TimeUnit.MICROSECONDS, "12us", "12 microsecond", "12 microseconds");
     }
 
     @Test
     public void testParseMilliseconds() {
-        assetStringsEqualToDuration(1, TimeUnit.MILLISECONDS, "1ms", "1 millisecond", "1 milliseconds");
+        assertStringsEqualToDuration(1, TimeUnit.MILLISECONDS, "1ms", "1 millisecond", "1 milliseconds");
     }
 
     @Test
     public void testParseSeconds() {
-        assetStringsEqualToDuration(15, TimeUnit.SECONDS, "15s", "15 second", "15 seconds");
+        assertStringsEqualToDuration(15, TimeUnit.SECONDS, "15s", "15 second", "15 seconds");
     }
 
     @Test
     public void testParseMinutes() {
-        assetStringsEqualToDuration(8, TimeUnit.MINUTES, "8m", "8 minute", "8 minutes");
+        assertStringsEqualToDuration(8, TimeUnit.MINUTES, "8m", "8 minute", "8 minutes");
     }
 
     @Test
     public void testParseHours() {
-        assetStringsEqualToDuration(7, TimeUnit.HOURS, "7h", "7 hour", "7 hours");
+        assertStringsEqualToDuration(7, TimeUnit.HOURS, "7h", "7 hour", "7 hours");
     }
 
     @Test
     public void testParseDays() {
-        assetStringsEqualToDuration(14, TimeUnit.DAYS, "14d", "14 day", "14 days");
+        assertStringsEqualToDuration(14, TimeUnit.DAYS, "14d", "14 day", "14 days");
     }
 
     @Test
@@ -100,11 +104,31 @@ public final class HumanReadableDurationTests {
         assertThat(HumanReadableDuration.valueOf("2 seconds").toString()).isEqualTo("2 seconds");
     }
 
-    private static void assetStringsEqualToDuration(long expectedQuantity, TimeUnit expectedTimeUnit,
+    @Test
+    public void testToJson() throws Exception {
+        assertThat(toJsonString(HumanReadableDuration.valueOf("1 second"))).isEqualTo("\"1 second\"");
+        assertThat(toJsonString(HumanReadableDuration.valueOf("1 seconds"))).isEqualTo("\"1 second\"");
+        assertThat(toJsonString(HumanReadableDuration.valueOf("2 second"))).isEqualTo("\"2 seconds\"");
+        assertThat(toJsonString(HumanReadableDuration.valueOf("2 seconds"))).isEqualTo("\"2 seconds\"");
+    }
+
+    private static void assertStringsEqualToDuration(long expectedQuantity, TimeUnit expectedTimeUnit,
             String... durationStrings) {
         assertThat(Arrays.stream(durationStrings)
-                .map(HumanReadableDuration::valueOf)
+                .map(HumanReadableDurationTests::parseFromString)
                 .collect(Collectors.toList())
         ).allMatch(duration -> duration.getQuantity() == expectedQuantity && duration.getUnit() == expectedTimeUnit);
+    }
+
+    private static HumanReadableDuration parseFromString(String durationString) {
+        try {
+            return objectMapper.treeToValue(TextNode.valueOf(durationString), HumanReadableDuration.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to parse duration from string", e);
+        }
+    }
+
+    private String toJsonString(HumanReadableDuration humanReadableDuration) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(humanReadableDuration);
     }
 }

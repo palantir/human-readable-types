@@ -19,41 +19,45 @@ package com.palantir.humanreadabletypes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
 public final class HumanReadableByteCountTests {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     public void testParseByte() {
-        assetStringsEqualToBytes(10L, "10", "10b", "10 byte", "10 bytes");
+        assertStringsEqualToBytes(10L, "10", "10b", "10 byte", "10 bytes");
     }
 
     @Test
     public void testParseKibiBytes() {
-        assetStringsEqualToBytes(1024L * 10L, "10k", "10kb", "10 kibibyte", "10 kibibytes");
+        assertStringsEqualToBytes(1024L * 10L, "10k", "10kb", "10 kibibyte", "10 kibibytes");
     }
 
     @Test
     public void testParseMibiBytes() {
-        assetStringsEqualToBytes((long) Math.pow(1024L, 2L) * 10L, "10m", "10mb", "10 mibibyte", "10 mibibytes");
+        assertStringsEqualToBytes((long) Math.pow(1024L, 2L) * 10L, "10m", "10mb", "10 mibibyte", "10 mibibytes");
     }
 
     @Test
     public void testParseGibiBytes() {
-        assetStringsEqualToBytes((long) Math.pow(1024L, 3L) * 10L, "10g", "10gb", "10 gibibyte", "10 gibibytes");
+        assertStringsEqualToBytes((long) Math.pow(1024L, 3L) * 10L, "10g", "10gb", "10 gibibyte", "10 gibibytes");
     }
 
     @Test
     public void testParseTebiBytes() {
-        assetStringsEqualToBytes((long) Math.pow(1024L, 4L) * 10L, "10t", "10tb", "10 tebibyte", "10 tebibytes");
+        assertStringsEqualToBytes((long) Math.pow(1024L, 4L) * 10L, "10t", "10tb", "10 tebibyte", "10 tebibytes");
     }
 
     @Test
     public void testParsePebiBytes() {
-        assetStringsEqualToBytes((long) Math.pow(1024L, 5L) * 10L, "10p", "10pb", "10 pebibyte", "10 pebibytes");
+        assertStringsEqualToBytes((long) Math.pow(1024L, 5L) * 10L, "10p", "10pb", "10 pebibyte", "10 pebibytes");
     }
 
     @Test
@@ -94,11 +98,31 @@ public final class HumanReadableByteCountTests {
         assertThat(HumanReadableByteCount.valueOf("2 bytes").toString()).isEqualTo("2 bytes");
     }
 
-    private static void assetStringsEqualToBytes(long expectedBytes, String... byteCounts) {
+    @Test
+    public void testToJsonString() throws Exception {
+        assertThat(toJsonString(HumanReadableByteCount.valueOf("1 byte"))).isEqualTo("\"1 byte\"");
+        assertThat(toJsonString(HumanReadableByteCount.valueOf("1 bytes"))).isEqualTo("\"1 byte\"");
+        assertThat(toJsonString(HumanReadableByteCount.valueOf("2 byte"))).isEqualTo("\"2 bytes\"");
+        assertThat(toJsonString(HumanReadableByteCount.valueOf("2 bytes"))).isEqualTo("\"2 bytes\"");
+    }
+
+    private static void assertStringsEqualToBytes(long expectedBytes, String... byteCounts) {
         assertThat(Arrays.stream(byteCounts)
-                .map(HumanReadableByteCount::valueOf)
+                .map(HumanReadableByteCountTests::parseFromString)
                 .map(HumanReadableByteCount::toBytes)
                 .collect(Collectors.toList())
         ).allMatch(Predicate.isEqual(expectedBytes));
+    }
+
+    private static HumanReadableByteCount parseFromString(String durationString) {
+        try {
+            return objectMapper.treeToValue(TextNode.valueOf(durationString), HumanReadableByteCount.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to parse duration from string", e);
+        }
+    }
+
+    private String toJsonString(HumanReadableByteCount humanReadableByteCount) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(humanReadableByteCount);
     }
 }

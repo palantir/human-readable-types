@@ -17,6 +17,7 @@
 package com.palantir.humanreadabletypes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
@@ -245,6 +246,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
      * @return a human-readable string representation of this byte string, not null
      */
     @Override
+    @JsonValue
     public String toString() {
         String units = unit.toString().toLowerCase(Locale.ENGLISH);
         if (size == 1) {
