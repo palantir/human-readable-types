@@ -47,7 +47,7 @@ public final class HumanReadableByteCountTests {
 
     @Test
     public void testParseMebiBytes() {
-        assetStringsEqualToBytes((long) Math.pow(1024L, 2L) * 10L, "10m", "10mb", "10 mebibyte", "10 mebibytes");
+        assertStringsEqualToBytes((long) Math.pow(1024L, 2L) * 10L, "10m", "10mb", "10 mebibyte", "10 mebibytes");
     }
 
     @Test
