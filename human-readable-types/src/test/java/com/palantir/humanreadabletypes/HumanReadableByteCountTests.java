@@ -42,6 +42,11 @@ public final class HumanReadableByteCountTests {
     }
 
     @Test
+    public void testParseMebiBytes() {
+        assetStringsEqualToBytes((long) Math.pow(1024L, 2L) * 10L, "10m", "10mb", "10 mebibyte", "10 mebibytes");
+    }
+
+    @Test
     public void testParseGibiBytes() {
         assetStringsEqualToBytes((long) Math.pow(1024L, 3L) * 10L, "10g", "10gb", "10 gibibyte", "10 gibibytes");
     }
