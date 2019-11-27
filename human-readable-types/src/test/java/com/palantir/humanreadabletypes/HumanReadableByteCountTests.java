@@ -81,17 +81,18 @@ public final class HumanReadableByteCountTests {
 
     @Test
     public void testEquals() {
-        assertThat(HumanReadableByteCount.bytes(1024).equals(HumanReadableByteCount.kibibytes(1))).isTrue();
-        assertThat(HumanReadableByteCount.bytes(1).equals(HumanReadableByteCount.valueOf("1"))).isTrue();
-        assertThat(HumanReadableByteCount.mebibytes(1024).equals(HumanReadableByteCount.gibibytes(1))).isTrue();
-        assertThat(HumanReadableByteCount.tebibytes(1024).equals(HumanReadableByteCount.pebibytes(1))).isTrue();
-        assertThat(HumanReadableByteCount.bytes(1024).equals(HumanReadableByteCount.mebibytes(1))).isFalse();
+        assertThat(HumanReadableByteCount.bytes(1024)).isEqualTo(HumanReadableByteCount.kibibytes(1));
+        assertThat(HumanReadableByteCount.bytes(1)).isEqualTo(HumanReadableByteCount.valueOf("1"));
+        assertThat(HumanReadableByteCount.mebibytes(1024)).isEqualTo(HumanReadableByteCount.gibibytes(1));
+        assertThat(HumanReadableByteCount.tebibytes(1024)).isEqualTo(HumanReadableByteCount.pebibytes(1));
+        assertThat(HumanReadableByteCount.bytes(1024)).isNotEqualTo(HumanReadableByteCount.mebibytes(1));
     }
 
     @Test
     public void testCompareTo() {
         assertThat(HumanReadableByteCount.bytes(2048).compareTo(HumanReadableByteCount.kibibytes(1))).isEqualTo(1);
-        assertThat(HumanReadableByteCount.bytes(1024).compareTo(HumanReadableByteCount.kibibytes(1))).isEqualTo(0);
+        assertThat(HumanReadableByteCount.bytes(1024).compareTo(HumanReadableByteCount.kibibytes(1)))
+                .isZero();
         assertThat(HumanReadableByteCount.mebibytes(1).compareTo(HumanReadableByteCount.gibibytes(1))).isEqualTo(-1);
     }
 
