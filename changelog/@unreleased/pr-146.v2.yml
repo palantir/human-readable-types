@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Add StringBasedUrl
+  links:
+  - https://github.com/palantir/human-readable-types/pull/146
