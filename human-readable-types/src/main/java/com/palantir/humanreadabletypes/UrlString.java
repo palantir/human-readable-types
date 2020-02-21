@@ -24,37 +24,37 @@ import java.net.URL;
 /**
  * An immutable {@link URL} whose {@link #equals}, {@link #toString}, and {@link #hashCode} are derived from the URL's
  * string representation (at instance construction time) rather than the {@link URL} class. For example, two {@link
- * StringBasedUrl}s are equal iff the strings from which they were {@link #valueOf constructed} are equal.
+ * UrlString}s are equal iff the strings from which they were {@link #valueOf constructed} are equal.
  * <p>
  * This class is intended to be used in configuration files where (1) URL syntax verification should be performed, (2)
  * host name resolution is not desired, and (3) equality/stability of the configuration file should be derived from the
  * configuration file syntax, rather than the dynamic behavior of the configuration values, cf. {@link URL#equals}.
  */
-public final class StringBasedUrl {
+public final class UrlString {
 
     private final String stringUrl;
     private final URL url;
 
-    private StringBasedUrl(String stringUrl) throws MalformedURLException {
+    private UrlString(String stringUrl) throws MalformedURLException {
         this.stringUrl = stringUrl;
         this.url = new URL(stringUrl);
     }
 
     /**
-     * Constructs a new {@link StringBasedUrl} from the provided string representation, or throws an {@link
+     * Constructs a new {@link UrlString} from the provided string representation, or throws an {@link
      * IllegalArgumentException} if the given string cannot be parsed as a {@link URL}.
      */
     @JsonCreator
-    public static StringBasedUrl valueOf(String url) {
+    public static UrlString valueOf(String url) {
         try {
-            return new StringBasedUrl(url);
+            return new UrlString(url);
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException("Illegal URL", e);
         }
     }
 
     /**
-     * Returns the {@link URL} derived from this {@link StringBasedUrl}.
+     * Returns the {@link URL} derived from this {@link UrlString}.
      */
     public URL toUrl() {
         return url;
@@ -69,7 +69,7 @@ public final class StringBasedUrl {
             return false;
         }
 
-        StringBasedUrl otherUri = (StringBasedUrl) other;
+        UrlString otherUri = (UrlString) other;
         return stringUrl.equals(otherUri.stringUrl);
     }
 
