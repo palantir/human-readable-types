@@ -26,9 +26,9 @@ import java.net.URL;
  * string representation (at instance construction time) rather than the {@link URL} class. For example, two {@link
  * StringBasedUrl}s are equal iff the strings from which they were {@link #valueOf constructed} are equal.
  * <p>
- * This class is intended to be used in configuration files where (1) host name resolution is not desired, and (2)
- * equality/stability of the configuration file should be derived from the configuration file syntax, rather than the
- * dynamic behavior of the configuration values, cf. {@link URL#equals}.
+ * This class is intended to be used in configuration files where (1) URL syntax verification should be performed, (2)
+ * host name resolution is not desired, and (3) equality/stability of the configuration file should be derived from the
+ * configuration file syntax, rather than the dynamic behavior of the configuration values, cf. {@link URL#equals}.
  */
 public final class StringBasedUrl {
 
