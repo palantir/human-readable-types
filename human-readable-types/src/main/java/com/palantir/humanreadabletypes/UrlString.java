@@ -46,6 +46,7 @@ public final class UrlString {
      */
     @JsonCreator
     public static UrlString valueOf(String url) {
+        Preconditions.checkNotNull(url, "UrlString must not be null");
         try {
             return new UrlString(url);
         } catch (MalformedURLException e) {

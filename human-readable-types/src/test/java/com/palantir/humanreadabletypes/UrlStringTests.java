@@ -35,7 +35,7 @@ public final class UrlStringTests {
 
     @Test
     public void cannotConstructIllegalUri() {
-        assertThatThrownBy(() -> UrlString.valueOf(null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> UrlString.valueOf(null)).isInstanceOf(NullPointerException.class);
         assertThatThrownBy(() -> UrlString.valueOf("")).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> UrlString.valueOf("foo")).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> UrlString.valueOf("http//foo")).isInstanceOf(IllegalArgumentException.class);
