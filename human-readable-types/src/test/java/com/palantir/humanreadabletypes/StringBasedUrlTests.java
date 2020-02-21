@@ -53,6 +53,11 @@ public final class StringBasedUrlTests {
     }
 
     @Test
+    public void isNotEqualToRawString() {
+        assertThat(StringBasedUrl.valueOf("http://localhost")).isNotEqualTo("http://localhost");
+    }
+
+    @Test
     public void hashCodeIsBasedOnString() {
         StringBasedUrl uri = StringBasedUrl.valueOf("http://foo");
         assertThat(uri.toUrl().hashCode()).isNotEqualTo("http://foo".hashCode());
