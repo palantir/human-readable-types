@@ -69,7 +69,7 @@ public final class HumanReadableByteCountTests {
     public void testInvalidString() {
         assertThatThrownBy(() -> HumanReadableByteCount.valueOf("Ten bytes"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid byte string: Ten bytes");
+                .hasMessage("Invalid byte string: {byteCount=Ten bytes}");
     }
 
     @Test

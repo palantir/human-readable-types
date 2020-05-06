@@ -69,7 +69,7 @@ public final class HumanReadableDurationTests {
     public void testInvalidPattern() {
         assertThatThrownBy(() -> HumanReadableDuration.valueOf("One hour"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid duration: One hour");
+                .hasMessage("Invalid duration: {duration=One hour}");
     }
 
     @Test
