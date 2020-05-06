@@ -138,7 +138,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
      * @param byteCount the string representation of this byte string
      * @return the parsed {@link HumanReadableByteCount}
      * @throws IllegalArgumentException if the provided byte string is invalid
-     * @throws NumberFormatException    if the provided size cannot be parsed
+     * @throws NumberFormatException if the provided size cannot be parsed
      */
     @JsonCreator
     public static HumanReadableByteCount valueOf(String byteCount) {
@@ -157,6 +157,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
             }
 
             return new HumanReadableByteCount(size, suffix != null ? SUFFIXES.get(suffix) : ByteUnit.BYTE);
+
         } catch (NumberFormatException e) {
             String byteError = "Size must be specified as bytes (b), "
                     + "kibibytes (k), mebibytes (m), gibibytes (g), tebibytes (t), or pebibytes(p). "
@@ -195,10 +196,10 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
     /**
      * Compares this byte string to the specified {@code HumanReadableByteCount}.
      * <p>
-     * The comparison is based on the total number of bytes. It is "consistent with equals", as defined by {@link
-     * Comparable}.
+     * The comparison is based on the total number of bytes.
+     * It is "consistent with equals", as defined by {@link Comparable}.
      *
-     * @param otherByteCount the other byte string to compare to, not null
+     * @param otherByteCount  the other byte string to compare to, not null
      * @return the comparator value, negative if less, positive if greater
      */
     @Override
@@ -214,7 +215,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
      * <p>
      * The comparison is based on the total number of bytes.
      *
-     * @param otherByteCount the other byte string, null returns false
+     * @param otherByteCount  the other byte string, null returns false
      * @return true if the other byte string is equal to this one
      */
     @Override
