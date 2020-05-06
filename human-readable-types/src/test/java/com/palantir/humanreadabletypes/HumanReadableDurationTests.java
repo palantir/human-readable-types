@@ -76,7 +76,7 @@ public final class HumanReadableDurationTests {
     public void testInvalidUnits() {
         assertThatThrownBy(() -> HumanReadableDuration.valueOf("10 weeks"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid duration: 10 weeks. Wrong time unit");
+                .hasMessage("Invalid duration. Wrong time unit: {duration=10 weeks}");
     }
 
     @Test

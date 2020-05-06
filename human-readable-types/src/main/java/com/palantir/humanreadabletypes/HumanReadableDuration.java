@@ -22,9 +22,9 @@ import java.util.regex.Pattern;
 /**
  * A human-readable type for durations.
  * <p>
- * This class allows for parsing strings representing durations into usable time quantities. Strings should match
- * {@link HumanReadableDuration#DURATION_PATTERN} which represents the numeric duration value with a suffix representing
- * the {@link TimeUnit} to use for this duration. Suffixes may be pluralized or not regardless of the actual numeric
+ * This class allows for parsing strings representing durations into usable time quantities. Strings should match {@link
+ * HumanReadableDuration#DURATION_PATTERN} which represents the numeric duration value with a suffix representing the
+ * {@link TimeUnit} to use for this duration. Suffixes may be pluralized or not regardless of the actual numeric
  * quantity.
  * <p>
  * All {@code equal}, {@code compareTo} and {@code hashCode} implementations assume normalized values, i.e. they work
@@ -140,7 +140,7 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
      *
      * @param duration the string HumanReadableDuration of this duration
      * @return the parsed {@link HumanReadableDuration}
-     * @throws IllegalArgumentException if the provided duration is invalid
+     * @throws SafeIllegalArgumentException if the provided duration is invalid
      */
     @JsonCreator
     public static HumanReadableDuration valueOf(String duration) {
@@ -150,7 +150,9 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
         final long count = Long.parseLong(matcher.group(1));
         final TimeUnit unit = SUFFIXES.get(matcher.group(2));
         if (unit == null) {
-            throw new IllegalArgumentException("Invalid duration: " + duration + ". Wrong time unit");
+            throw new SafeIllegalArgumentException(
+                    "Invalid duration. Wrong time unit",
+                    SafeArg.of("duration", duration));
         }
 
         return new HumanReadableDuration(count, unit);
@@ -236,10 +238,10 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
      * <p>
      * This handles the seven units declared in {@code TimeUnit}.
      *
-     * @implNote This method can be removed in JDK9
-     * @see <a href="https://bugs.openjdk.java.net/browse/JDK-8141452">JDK-8141452</a>
      * @param unit the unit to convert, not null
      * @return the converted unit, not null
+     * @implNote This method can be removed in JDK9
+     * @see <a href="https://bugs.openjdk.java.net/browse/JDK-8141452">JDK-8141452</a>
      */
     private static ChronoUnit chronoUnit(TimeUnit unit) {
         Preconditions.checkNotNull(unit, "unit");
@@ -265,10 +267,10 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
     /**
      * Compares this duration to the specified {@code HumanReadableDuration}.
      * <p>
-     * The comparison is based on the total length of the durations.
-     * It is "consistent with equals", as defined by {@link Comparable}.
+     * The comparison is based on the total length of the durations. It is "consistent with equals", as defined by
+     * {@link Comparable}.
      *
-     * @param otherDuration  the other duration to compare to, not null
+     * @param otherDuration the other duration to compare to, not null
      * @return the comparator value, negative if less, positive if greater
      */
     @Override
@@ -285,7 +287,7 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
      * <p>
      * The comparison is based on the total length of the durations.
      *
-     * @param otherDuration  the other duration, null returns false
+     * @param otherDuration the other duration, null returns false
      * @return true if the other duration is equal to this one
      */
     @Override
@@ -301,7 +303,6 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
             return count == duration.count;
         }
         return toJavaDuration().equals(duration.toJavaDuration());
-
     }
 
     /**
