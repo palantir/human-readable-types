@@ -1,6 +1,6 @@
 com.fasterxml.jackson.*:jackson-* = 2.11.0
 com.google.code.findbugs:jsr305 = 3.0.2
-com.google.errorprone:error_prone_annotations = 2.3.4
+com.google.errorprone:* = 2.3.4
 com.google.guava:guava = 27.0.1-jre
 junit:junit = 4.13
 org.assertj:* = 3.16.0
