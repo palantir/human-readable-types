@@ -18,6 +18,8 @@ package com.palantir.humanreadabletypes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.palantir.logsafe.Preconditions;
+import com.palantir.logsafe.SafeArg;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
@@ -145,7 +147,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         try {
             Matcher matcher = BYTE_COUNT_PATTERN.matcher(lower);
 
-            Preconditions.checkArgument(matcher.matches(), "Invalid byte string: %s", byteCount);
+            Preconditions.checkArgument(matcher.matches(), "Invalid byte string", SafeArg.of("byteCount", byteCount));
 
             long size = Long.parseLong(matcher.group(1));
             String suffix = matcher.group(2);
@@ -274,7 +276,8 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         }
 
         public long toBytes(long sizeValue) {
-            Preconditions.checkArgument(sizeValue >= 0, "Negative size value. Size must be positive: %s", sizeValue);
+            Preconditions.checkArgument(sizeValue >= 0, "Negative size value. Size must be positive",
+                    SafeArg.of("size", sizeValue));
             return sizeValue * multiplier;
         }
 
