@@ -49,24 +49,10 @@ allprojects {
             url 'https://dl.bintray.com/palantir/releases/'
         }
     }
-
-
-    configurations.all {
-        resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'org.glassfish.hk2.external' && details.requested.name == 'javax.inject') {
-                details.useTarget group: 'javax.inject', name: 'javax.inject', version: '1'
-                details.because "The glassfish shaded copy is only necessary for OSGI environments, which we do not endorse."
-            }
-        }
-    }
 }
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'com.palantir.baseline-checkstyle'
-    apply plugin: 'com.palantir.baseline-eclipse'
-    apply plugin: 'com.palantir.baseline-idea'
-    apply plugin: 'com.palantir.baseline-error-prone'
+    apply plugin: 'java-library'
     apply plugin: 'com.palantir.baseline-class-uniqueness'
 
     sourceCompatibility = 1.8
