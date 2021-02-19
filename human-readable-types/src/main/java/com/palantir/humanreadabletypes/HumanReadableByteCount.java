@@ -276,8 +276,8 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         }
 
         public long toBytes(long sizeValue) {
-            Preconditions.checkArgument(sizeValue >= 0, "Negative size value. Size must be positive",
-                    SafeArg.of("size", sizeValue));
+            Preconditions.checkArgument(
+                    sizeValue >= 0, "Negative size value. Size must be positive", SafeArg.of("size", sizeValue));
             return sizeValue * multiplier;
         }
 

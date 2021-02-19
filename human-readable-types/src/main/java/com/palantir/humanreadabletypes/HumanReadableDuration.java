@@ -163,8 +163,7 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
         final TimeUnit unit = SUFFIXES.get(matcher.group(2));
         if (unit == null) {
             throw new SafeIllegalArgumentException(
-                    "Invalid duration. Wrong time unit",
-                    SafeArg.of("duration", duration));
+                    "Invalid duration. Wrong time unit", SafeArg.of("duration", duration));
         }
 
         return new HumanReadableDuration(count, unit);
@@ -315,7 +314,6 @@ public final class HumanReadableDuration implements Comparable<HumanReadableDura
             return count == duration.count;
         }
         return toJavaDuration().equals(duration.toJavaDuration());
-
     }
 
     /**
