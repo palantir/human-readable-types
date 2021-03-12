@@ -34,6 +34,11 @@ buildscript {
     }
 }
 
+plugins {
+  id 'signing'
+  id 'io.github.gradle-nexus.publish-plugin' version '1.0.0'
+}
+
 apply plugin: 'com.palantir.baseline-config'
 apply plugin: 'com.palantir.baseline-idea'
 apply plugin: 'com.palantir.git-version'
@@ -42,6 +47,9 @@ apply plugin: 'com.palantir.baseline'
 allprojects {
     group 'com.palantir.human-readable-types'
     version gitVersion()
+
+    description = """This repository provides a collection of useful types that can be deserialized from human-readable strings.
+These types can be particularly useful for use in POJOs deserialized from configuration files where legibility is important."""
 
     repositories {
         mavenCentral()
@@ -88,4 +96,16 @@ subprojects {
     tasks.withType(Test) {
         systemProperty 'recreate', System.getProperty('recreate', 'false')
     }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            stagingProfileId = 'com.palantir'
+        }
+    }
+
+    // Be resilient against sonatype publishing issues
+    connectTimeout = Duration.ofMinutes(3)
+    clientTimeout = Duration.ofMinutes(3)
 }
