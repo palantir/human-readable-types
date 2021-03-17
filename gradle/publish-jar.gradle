@@ -70,7 +70,6 @@ tasks.withType(GenerateModuleMetadata) {
 def hasSigningKey = project.findProperty("signingKey") && project.findProperty("signingKeyId")
 if(hasSigningKey) {
     signing {
-        required { project.gradle.taskGraph.hasTask("publish") }
         // Expect that the gpg key is base64 decoded as a secret in CircleCI
         // to avoid problems with newlines in CircleCI env vars
         useInMemoryPgpKeys(findProperty("signingKeyId"), new String(findProperty("signingKey").decodeBase64()), findProperty("signingPassword"))
