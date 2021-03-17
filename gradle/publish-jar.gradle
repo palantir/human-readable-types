@@ -67,8 +67,14 @@ tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
 
-signing {
-  useInMemoryPgpKeys(findProperty("signingKey"), findProperty("signingPassword"))
+def hasSigningKey = project.findProperty("signingKey")
+if(hasSigningKey) {
+    signing {
+        required { project.gradle.taskGraph.hasTask("publish") }
+        // Expect that the gpg key is base64 decoded as a secret in CircleCI
+        // to avoid problems with newlines in CircleCI env vars
+        useInMemoryPgpKeys(new String(findProperty("signingKey").decodeBase64()), findProperty("signingPassword"))
 
-  sign publishing.publications.maven
+        sign publishing.publications.maven
+    }
 }
