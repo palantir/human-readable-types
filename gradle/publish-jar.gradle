@@ -67,12 +67,12 @@ tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
 
-def hasSigningKey = project.findProperty("signingKey") && project.findProperty("signingKeyId")
+def hasSigningKey = System.env.GPG_SIGNING_KEY && System.env.GPG_SIGNING_KEY_ID
 if(hasSigningKey) {
     signing {
         // Expect that the gpg key is base64 decoded as a secret in CircleCI
         // to avoid problems with newlines in CircleCI env vars
-        useInMemoryPgpKeys(findProperty("signingKeyId"), new String(findProperty("signingKey").decodeBase64()), findProperty("signingPassword"))
+        useInMemoryPgpKeys(System.env.GPG_SIGNING_KEY_ID, new String(System.env.GPG_SIGNING_KEY.decodeBase64()), System.env.GPG_SIGNING_KEY_PASSWORD)
 
         sign publishing.publications.maven
     }
