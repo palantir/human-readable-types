@@ -100,9 +100,7 @@ subprojects {
 
 nexusPublishing {
     repositories {
-        sonatype {
-            stagingProfileId = 'com.palantir'
-        }
+        sonatype()
     }
 
     // Be resilient against sonatype publishing issues
