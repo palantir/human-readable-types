@@ -35,12 +35,9 @@ buildscript {
 }
 
 apply plugin: 'com.palantir.baseline'
-<<<<<<< HEAD
 apply plugin: 'com.palantir.external-publish'
-=======
 apply plugin: 'com.palantir.consistent-versions'
 apply plugin: 'com.palantir.git-version'
->>>>>>> be664bb (Use gradle-consistent-versions and version locks (#229))
 
 allprojects {
     group 'com.palantir.human-readable-types'
