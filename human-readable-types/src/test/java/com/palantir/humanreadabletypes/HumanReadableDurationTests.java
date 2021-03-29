@@ -81,19 +81,28 @@ public final class HumanReadableDurationTests {
 
     @Test
     public void testEquals() {
-        assertThat(HumanReadableDuration.nanoseconds(1000).equals(HumanReadableDuration.microseconds(1))).isTrue();
-        assertThat(HumanReadableDuration.microseconds(1000).equals(HumanReadableDuration.milliseconds(1))).isTrue();
-        assertThat(HumanReadableDuration.milliseconds(1000).equals(HumanReadableDuration.seconds(1))).isTrue();
-        assertThat(HumanReadableDuration.seconds(60).equals(HumanReadableDuration.minutes(1))).isTrue();
-        assertThat(HumanReadableDuration.minutes(60).equals(HumanReadableDuration.hours(1))).isTrue();
-        assertThat(HumanReadableDuration.hours(24).equals(HumanReadableDuration.days(1))).isTrue();
+        assertThat(HumanReadableDuration.nanoseconds(1000).equals(HumanReadableDuration.microseconds(1)))
+                .isTrue();
+        assertThat(HumanReadableDuration.microseconds(1000).equals(HumanReadableDuration.milliseconds(1)))
+                .isTrue();
+        assertThat(HumanReadableDuration.milliseconds(1000).equals(HumanReadableDuration.seconds(1)))
+                .isTrue();
+        assertThat(HumanReadableDuration.seconds(60).equals(HumanReadableDuration.minutes(1)))
+                .isTrue();
+        assertThat(HumanReadableDuration.minutes(60).equals(HumanReadableDuration.hours(1)))
+                .isTrue();
+        assertThat(HumanReadableDuration.hours(24).equals(HumanReadableDuration.days(1)))
+                .isTrue();
     }
 
     @Test
     public void testCompareTo() {
-        assertThat(HumanReadableDuration.seconds(70).compareTo(HumanReadableDuration.minutes(1))).isEqualTo(1);
-        assertThat(HumanReadableDuration.seconds(86400).compareTo(HumanReadableDuration.days(1))).isEqualTo(0);
-        assertThat(HumanReadableDuration.microseconds(100).compareTo(HumanReadableDuration.seconds(1))).isEqualTo(-1);
+        assertThat(HumanReadableDuration.seconds(70).compareTo(HumanReadableDuration.minutes(1)))
+                .isEqualTo(1);
+        assertThat(HumanReadableDuration.seconds(86400).compareTo(HumanReadableDuration.days(1)))
+                .isEqualTo(0);
+        assertThat(HumanReadableDuration.microseconds(100).compareTo(HumanReadableDuration.seconds(1)))
+                .isEqualTo(-1);
     }
 
     @Test
@@ -112,12 +121,13 @@ public final class HumanReadableDurationTests {
         assertThat(toJsonString(HumanReadableDuration.valueOf("2 seconds"))).isEqualTo("\"2 seconds\"");
     }
 
-    private static void assertStringsEqualToDuration(long expectedQuantity, TimeUnit expectedTimeUnit,
-            String... durationStrings) {
+    private static void assertStringsEqualToDuration(
+            long expectedQuantity, TimeUnit expectedTimeUnit, String... durationStrings) {
         assertThat(Arrays.stream(durationStrings)
-                .map(HumanReadableDurationTests::parseFromString)
-                .collect(Collectors.toList())
-        ).allMatch(duration -> duration.getQuantity() == expectedQuantity && duration.getUnit() == expectedTimeUnit);
+                        .map(HumanReadableDurationTests::parseFromString)
+                        .collect(Collectors.toList()))
+                .allMatch(duration ->
+                        duration.getQuantity() == expectedQuantity && duration.getUnit() == expectedTimeUnit);
     }
 
     private static HumanReadableDuration parseFromString(String durationString) {

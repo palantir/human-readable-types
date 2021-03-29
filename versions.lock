@@ -1,0 +1,19 @@
+# Run ./gradlew --write-locks to regenerate this file
+com.fasterxml.jackson.core:jackson-annotations:2.11.2 (1 constraints: 86123121)
+com.fasterxml.jackson.core:jackson-core:2.11.2 (2 constraints: 242963bb)
+com.fasterxml.jackson.core:jackson-databind:2.11.2 (2 constraints: d61b078f)
+com.fasterxml.jackson.datatype:jackson-datatype-guava:2.11.2 (1 constraints: 3805343b)
+com.google.code.findbugs:jsr305:3.0.2 (2 constraints: 1d0fb186)
+com.google.errorprone:error_prone_annotations:2.5.1 (2 constraints: 1d1bfb59)
+com.google.guava:failureaccess:1.0.1 (1 constraints: 140ae1b4)
+com.google.guava:guava:30.1.1-jre (2 constraints: e11c9fc6)
+com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 constraints: bd17c918)
+com.google.j2objc:j2objc-annotations:1.3 (1 constraints: b809eda0)
+com.palantir.safe-logging:preconditions:1.14.0 (1 constraints: 3805353b)
+com.palantir.safe-logging:safe-logging:1.14.0 (1 constraints: 321157d1)
+org.checkerframework:checker-qual:3.8.0 (2 constraints: 280f6d87)
+
+[Test dependencies]
+junit:junit:4.13.2 (1 constraints: 3c05463b)
+org.assertj:assertj-core:3.19.0 (1 constraints: 3f05503b)
+org.hamcrest:hamcrest-core:1.3 (1 constraints: cc05fe3f)
