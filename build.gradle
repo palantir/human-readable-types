@@ -41,9 +41,9 @@ allprojects {
     version gitVersion()
 
     repositories {
-    mavenCentral()
-    maven { url 'https://palantir.bintray.com/releases' }
-    jcenter()
+        mavenCentral()
+        maven { url 'https://palantir.bintray.com/releases' }
+        jcenter()
 }
 }
 
