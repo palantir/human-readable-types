@@ -18,7 +18,6 @@ buildscript {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        maven { url 'https://palantir.bintray.com/releases' }
         jcenter()
     }
 
@@ -42,7 +41,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven { url 'https://palantir.bintray.com/releases' }
         jcenter()
 }
 }
