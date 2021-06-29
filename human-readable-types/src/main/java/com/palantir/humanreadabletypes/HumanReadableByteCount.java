@@ -186,9 +186,9 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         /**
          * A method allowing the raw quantity and unit values to be interpreted into a more specific type.
          *
-         * @param quantity Raw number of the given {@code unit}.
-         * @param unit Unit which the {@code quantity represents}.
-         * @return A representation of the byte-count value.
+         * @param quantity Raw number of the given {@code unit}
+         * @param unit Unit which the {@code quantity represents}
+         * @return A representation of the byte-count value
          */
         T apply(long quantity, ByteUnit unit);
     }
