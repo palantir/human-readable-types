@@ -18,6 +18,7 @@ package com.palantir.humanreadabletypes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.errorprone.annotations.DoNotCall;
 import com.palantir.logsafe.Preconditions;
 import com.palantir.logsafe.SafeArg;
 import java.io.Serializable;
@@ -173,15 +174,54 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
     }
 
     /**
-     * The size of this byte string in {@link HumanReadableByteCount.ByteUnit binary units}.
+     * Reads the value of this {@link HumanReadableByteCount} as a tuple of quantity and unit.
+     * Unlike {@link #getSize()}, this API is meant to make it obvious that the data is only meaningful
+     * when both pieces are used together.
+     *
+     * @param <T> Result type.
      */
+    @FunctionalInterface
+    public interface SizeFunction<T> {
+
+        /**
+         * A method allowing the raw quantity and unit values to be interpreted into a more specific type.
+         *
+         * @param quantity Raw number of the given {@code unit}.
+         * @param unit Unit which the {@code quantity represents}.
+         * @return A representation of the byte-count value.
+         */
+        T apply(long quantity, ByteUnit unit);
+    }
+
+    /**
+     * Provides the value of this {@link HumanReadableByteCount} as a tuple of quantity and unit to the
+     * {@link SizeFunction}.
+     *
+     * @param <T> Result type.
+     */
+    public <T> T map(SizeFunction<T> function) {
+        Preconditions.checkNotNull(function, "function must not be null");
+        return Preconditions.checkNotNull(function.apply(size, unit), "result must not be null");
+    }
+
+    /**
+     * The size of this byte string in {@link HumanReadableByteCount.ByteUnit binary units}.
+     *
+     * @deprecated in favor of {@link #map(SizeFunction)} which is harder to misuse.
+     */
+    @DoNotCall
+    @Deprecated
     public long getSize() {
         return size;
     }
 
     /**
      * The {@link ByteUnit binary unit} of this byte string.
+     *
+     * @deprecated in favor of {@link #map(SizeFunction)} which is harder to misuse.
      */
+    @DoNotCall
+    @Deprecated
     public ByteUnit getUnit() {
         return unit;
     }
