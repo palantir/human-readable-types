@@ -22,6 +22,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
+import com.palantir.humanreadabletypes.HumanReadableByteCount.ByteUnit;
+import com.palantir.logsafe.exceptions.SafeNullPointerException;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -112,6 +114,20 @@ public final class HumanReadableByteCountTests {
         assertThat(toJsonString(HumanReadableByteCount.valueOf("1 bytes"))).isEqualTo("\"1 byte\"");
         assertThat(toJsonString(HumanReadableByteCount.valueOf("2 byte"))).isEqualTo("\"2 bytes\"");
         assertThat(toJsonString(HumanReadableByteCount.valueOf("2 bytes"))).isEqualTo("\"2 bytes\"");
+    }
+
+    @Test
+    public void testMapNulls() {
+        HumanReadableByteCount bytes = HumanReadableByteCount.valueOf("1 byte");
+        assertThatThrownBy(() -> bytes.map(null)).isInstanceOf(SafeNullPointerException.class);
+        assertThatThrownBy(() -> bytes.map((_val, _unit) -> null)).isInstanceOf(SafeNullPointerException.class);
+    }
+
+    @Test
+    public void testMap() {
+        HumanReadableByteCount bytes = HumanReadableByteCount.valueOf("5mb");
+        assertThat(bytes.<ByteUnit>map((_quantity, unit) -> unit)).isEqualTo(ByteUnit.MiB);
+        assertThat(bytes.<Long>map((quantity, _unit) -> quantity)).isEqualTo(5L);
     }
 
     private static void assertStringsEqualToBytes(long expectedBytes, String... byteCounts) {
