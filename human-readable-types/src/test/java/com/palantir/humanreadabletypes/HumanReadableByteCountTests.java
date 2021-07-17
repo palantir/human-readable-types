@@ -27,7 +27,7 @@ import com.palantir.logsafe.exceptions.SafeNullPointerException;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class HumanReadableByteCountTests {
     private static final ObjectMapper objectMapper = new ObjectMapper();
