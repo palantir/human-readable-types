@@ -299,7 +299,7 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         return Long.toString(size) + ' ' + units;
     }
 
-    enum ByteUnit {
+    public enum ByteUnit {
         BYTE(1, "bytes"),
         KiB(1024L, "kibibytes"),
         MiB((long) Math.pow(1024L, 2L), "mebibytes"),
