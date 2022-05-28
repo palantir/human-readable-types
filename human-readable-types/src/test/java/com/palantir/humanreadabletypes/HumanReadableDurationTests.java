@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class HumanReadableDurationTests {
     private static final ObjectMapper objectMapper = new ObjectMapper();
