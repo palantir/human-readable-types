@@ -33,6 +33,7 @@ apply plugin: 'com.palantir.baseline'
 apply plugin: 'com.palantir.external-publish'
 apply plugin: 'com.palantir.consistent-versions'
 apply plugin: 'com.palantir.git-version'
+apply plugin: 'com.palantir.baseline-java-versions'
 
 allprojects {
     group 'com.palantir.human-readable-types'
@@ -48,7 +49,6 @@ subprojects {
     apply plugin: 'com.palantir.baseline-class-uniqueness'
     apply plugin: 'com.palantir.java-format'
 
-    sourceCompatibility = 1.8
 
     tasks.withType(JavaCompile) {
         options.compilerArgs += ['-Werror']
@@ -59,4 +59,8 @@ subprojects {
     tasks.withType(Test) {
         systemProperty 'recreate', System.getProperty('recreate', 'false')
     }
+}
+
+javaVersions {
+    libraryTarget = 11
 }
