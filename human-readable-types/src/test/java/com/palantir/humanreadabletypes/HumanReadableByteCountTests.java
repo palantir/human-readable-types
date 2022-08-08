@@ -44,27 +44,32 @@ public final class HumanReadableByteCountTests {
 
     @Test
     public void testParseMibiBytes() {
-        assertStringsEqualToBytes((long) Math.pow(1024L, 2L) * 10L, "10m", "10mb", "10 mibibyte", "10 mibibytes");
+        assertStringsEqualToBytes(
+                (long) Math.pow((double) 1024L, (double) 2L) * 10L, "10m", "10mb", "10 mibibyte", "10 mibibytes");
     }
 
     @Test
     public void testParseMebiBytes() {
-        assertStringsEqualToBytes((long) Math.pow(1024L, 2L) * 10L, "10m", "10mb", "10 mebibyte", "10 mebibytes");
+        assertStringsEqualToBytes(
+                (long) Math.pow((double) 1024L, (double) 2L) * 10L, "10m", "10mb", "10 mebibyte", "10 mebibytes");
     }
 
     @Test
     public void testParseGibiBytes() {
-        assertStringsEqualToBytes((long) Math.pow(1024L, 3L) * 10L, "10g", "10gb", "10 gibibyte", "10 gibibytes");
+        assertStringsEqualToBytes(
+                (long) Math.pow((double) 1024L, (double) 3L) * 10L, "10g", "10gb", "10 gibibyte", "10 gibibytes");
     }
 
     @Test
     public void testParseTebiBytes() {
-        assertStringsEqualToBytes((long) Math.pow(1024L, 4L) * 10L, "10t", "10tb", "10 tebibyte", "10 tebibytes");
+        assertStringsEqualToBytes(
+                (long) Math.pow((double) 1024L, (double) 4L) * 10L, "10t", "10tb", "10 tebibyte", "10 tebibytes");
     }
 
     @Test
     public void testParsePebiBytes() {
-        assertStringsEqualToBytes((long) Math.pow(1024L, 5L) * 10L, "10p", "10pb", "10 pebibyte", "10 pebibytes");
+        assertStringsEqualToBytes(
+                (long) Math.pow((double) 1024L, (double) 5L) * 10L, "10p", "10pb", "10 pebibyte", "10 pebibytes");
     }
 
     @Test
