@@ -302,10 +302,10 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
     public enum ByteUnit {
         BYTE(1, "bytes"),
         KiB(1024L, "kibibytes"),
-        MiB((long) Math.pow((double) 1024L, (double) 2L), "mebibytes"),
-        GiB((long) Math.pow((double) 1024L, (double) 3L), "gibibytes"),
-        TiB((long) Math.pow((double) 1024L, (double) 4L), "tebibytes"),
-        PiB((long) Math.pow((double) 1024L, (double) 5L), "pebibytes");
+        MiB((long) Math.pow(1024.0, 2.0), "mebibytes"),
+        GiB((long) Math.pow(1024.0, 3.0), "gibibytes"),
+        TiB((long) Math.pow(1024.0, 4.0), "tebibytes"),
+        PiB((long) Math.pow(1024.0, 5.0), "pebibytes");
 
         private final long multiplier;
         private final String suffix;
