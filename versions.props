@@ -5,5 +5,5 @@ com.google.errorprone:* = 2.10.0
 com.google.guava:guava = 31.1-jre
 com.palantir.safe-logging:* = 3.2.0
 org.assertj:* = 3.23.1
-org.checkerframework:checker-qual = 3.26.0
+org.checkerframework:checker-qual = 3.27.0
 org.junit.jupiter:* = 5.9.1
