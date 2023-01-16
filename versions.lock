@@ -17,7 +17,7 @@ org.jetbrains:annotations:23.0.0 (1 constraints: 31115ed1)
 [Test dependencies]
 net.bytebuddy:byte-buddy:1.12.21 (1 constraints: 7d0bbfea)
 org.apiguardian:apiguardian-api:1.1.2 (5 constraints: 105480ac)
-org.assertj:assertj-core:3.24.1 (1 constraints: 3c05463b)
+org.assertj:assertj-core:3.24.2 (1 constraints: 3d05473b)
 org.junit.jupiter:junit-jupiter:5.9.2 (1 constraints: 12052136)
 org.junit.jupiter:junit-jupiter-api:5.9.2 (4 constraints: 8a3441bb)
 org.junit.jupiter:junit-jupiter-engine:5.9.2 (1 constraints: 0d0ee23b)
