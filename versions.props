@@ -6,4 +6,4 @@ com.google.guava:guava = 32.1.1-jre
 com.palantir.safe-logging:* = 3.6.0
 org.assertj:* = 3.24.2
 org.checkerframework:checker-qual = 3.36.0
-org.junit.jupiter:* = 5.9.3
+org.junit.jupiter:* = 5.10.0
