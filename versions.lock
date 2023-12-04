@@ -11,7 +11,7 @@ com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 c
 com.google.j2objc:j2objc-annotations:2.8 (1 constraints: be09f5a0)
 com.palantir.safe-logging:preconditions:3.6.0 (1 constraints: 0b050c36)
 com.palantir.safe-logging:safe-logging:3.6.0 (1 constraints: 051134c0)
-org.checkerframework:checker-qual:3.40.0 (2 constraints: 870fa2a1)
+org.checkerframework:checker-qual:3.41.0 (2 constraints: 880fc5a1)
 org.jetbrains:annotations:24.0.1 (1 constraints: 331164d1)
 
 [Test dependencies]
