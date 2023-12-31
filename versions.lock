@@ -15,9 +15,9 @@ org.checkerframework:checker-qual:3.42.0 (2 constraints: 840fdaa1)
 org.jetbrains:annotations:24.0.1 (1 constraints: 331164d1)
 
 [Test dependencies]
-net.bytebuddy:byte-buddy:1.12.21 (1 constraints: 7d0bbfea)
+net.bytebuddy:byte-buddy:1.14.11 (1 constraints: 7e0bc5ea)
 org.apiguardian:apiguardian-api:1.1.2 (5 constraints: 105480ac)
-org.assertj:assertj-core:3.24.2 (1 constraints: 3d05473b)
+org.assertj:assertj-core:3.25.0 (1 constraints: 3c05483b)
 org.junit.jupiter:junit-jupiter:5.10.1 (1 constraints: 3905423b)
 org.junit.jupiter:junit-jupiter-api:5.10.1 (4 constraints: 2635e256)
 org.junit.jupiter:junit-jupiter-engine:5.10.1 (1 constraints: 340efe49)
