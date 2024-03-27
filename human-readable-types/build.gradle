@@ -18,7 +18,6 @@ apply plugin: 'com.palantir.external-publish-jar'
 
 dependencies {
     api 'com.fasterxml.jackson.core:jackson-databind'
-    api 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     implementation 'com.palantir.safe-logging:preconditions'
 
     testImplementation 'org.assertj:assertj-core'
