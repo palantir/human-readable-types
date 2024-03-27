@@ -17,9 +17,10 @@
 apply plugin: 'com.palantir.external-publish-jar'
 
 dependencies {
-    api 'com.fasterxml.jackson.core:jackson-databind'
+    api 'com.fasterxml.jackson.core:jackson-annotations'
     implementation 'com.palantir.safe-logging:preconditions'
 
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
