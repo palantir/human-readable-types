@@ -266,7 +266,6 @@ public final class HumanReadableByteCount implements Comparable<HumanReadableByt
         if ((otherByteCount == null) || (getClass() != otherByteCount.getClass())) {
             return false;
         }
-        @SuppressWarnings("for-rollout:UnnecessaryFinal")
         final HumanReadableByteCount other = (HumanReadableByteCount) otherByteCount;
         if (unit == other.unit) {
             return size == other.size;
