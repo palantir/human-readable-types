@@ -1,13 +1,13 @@
 # Run ./gradlew writeVersionsLocks to regenerate this file
-com.fasterxml.jackson.core:jackson-annotations:2.18.3 (2 constraints: cd17ab72)
+com.fasterxml.jackson.core:jackson-annotations:2.19.1 (2 constraints: cb177872)
 com.google.errorprone:error_prone_annotations:2.36.0 (1 constraints: 37116bd1)
 com.palantir.safe-logging:preconditions:3.9.0 (1 constraints: 0e051536)
 com.palantir.safe-logging:safe-logging:3.9.0 (1 constraints: 08113dc0)
 org.jetbrains:annotations:26.0.2 (1 constraints: 36116fd1)
 
 [Test dependencies]
-com.fasterxml.jackson.core:jackson-core:2.18.3 (1 constraints: 8e124721)
-com.fasterxml.jackson.core:jackson-databind:2.18.3 (1 constraints: 40054a3b)
+com.fasterxml.jackson.core:jackson-core:2.19.1 (1 constraints: 8d124821)
+com.fasterxml.jackson.core:jackson-databind:2.19.1 (1 constraints: 3f054b3b)
 net.bytebuddy:byte-buddy:1.15.11 (1 constraints: 7f0bc9ea)
 org.apiguardian:apiguardian-api:1.1.2 (6 constraints: 5366ce6e)
 org.assertj:assertj-core:3.27.3 (1 constraints: 4105513b)
