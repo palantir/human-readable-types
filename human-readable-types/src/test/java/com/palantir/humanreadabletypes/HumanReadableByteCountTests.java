@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.palantir.humanreadabletypes.HumanReadableByteCount.ByteUnit;
 import com.palantir.logsafe.exceptions.SafeNullPointerException;
+import java.io.UncheckedIOException;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -139,12 +140,11 @@ public final class HumanReadableByteCountTests {
                 .allMatch(Predicate.isEqual(expectedBytes));
     }
 
-    @SuppressWarnings("for-rollout:PreferUncheckedIoException")
     private static HumanReadableByteCount parseFromString(String durationString) {
         try {
             return objectMapper.treeToValue(TextNode.valueOf(durationString), HumanReadableByteCount.class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to parse duration from string", e);
+            throw new UncheckedIOException("Failed to parse duration from string", e);
         }
     }
 
