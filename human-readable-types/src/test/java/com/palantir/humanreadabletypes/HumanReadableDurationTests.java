@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
+import java.io.UncheckedIOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -124,12 +125,11 @@ public final class HumanReadableDurationTests {
                         duration.getQuantity() == expectedQuantity && duration.getUnit() == expectedTimeUnit);
     }
 
-    @SuppressWarnings("for-rollout:PreferUncheckedIoException")
     private static HumanReadableDuration parseFromString(String durationString) {
         try {
             return objectMapper.treeToValue(TextNode.valueOf(durationString), HumanReadableDuration.class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to parse duration from string", e);
+            throw new UncheckedIOException("Failed to parse duration from string", e);
         }
     }
 
