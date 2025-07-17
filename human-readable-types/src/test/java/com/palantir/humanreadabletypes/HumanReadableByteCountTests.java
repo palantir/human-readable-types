@@ -139,6 +139,7 @@ public final class HumanReadableByteCountTests {
                 .allMatch(Predicate.isEqual(expectedBytes));
     }
 
+    @SuppressWarnings("for-rollout:PreferUncheckedIoException")
     private static HumanReadableByteCount parseFromString(String durationString) {
         try {
             return objectMapper.treeToValue(TextNode.valueOf(durationString), HumanReadableByteCount.class);

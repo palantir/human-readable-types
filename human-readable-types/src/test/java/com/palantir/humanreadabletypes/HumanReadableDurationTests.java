@@ -124,6 +124,7 @@ public final class HumanReadableDurationTests {
                         duration.getQuantity() == expectedQuantity && duration.getUnit() == expectedTimeUnit);
     }
 
+    @SuppressWarnings("for-rollout:PreferUncheckedIoException")
     private static HumanReadableDuration parseFromString(String durationString) {
         try {
             return objectMapper.treeToValue(TextNode.valueOf(durationString), HumanReadableDuration.class);
