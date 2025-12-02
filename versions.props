@@ -4,6 +4,6 @@ com.google.code.findbugs:jsr305 = 3.0.2
 com.google.errorprone:* = 2.10.0
 com.palantir.safe-logging:* = 3.9.0
 org.assertj:* = 3.27.6
-org.checkerframework:checker-qual = 3.52.0
+org.checkerframework:checker-qual = 3.52.1
 org.junit.jupiter:* = 6.0.1
 org.junit.platform:* = 6.0.1
