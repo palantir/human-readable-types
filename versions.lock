@@ -18,11 +18,11 @@ com.fasterxml.jackson.core:jackson-core:2.20.1 (1 constraints: 85123121)
 
 com.fasterxml.jackson.core:jackson-databind:2.20.1 (1 constraints: 3705343b)
 
-net.bytebuddy:byte-buddy:1.17.7 (1 constraints: 560b56df)
+net.bytebuddy:byte-buddy:1.18.3 (1 constraints: 530b55df)
 
 org.apiguardian:apiguardian-api:1.1.2 (6 constraints: 5366ce6e)
 
-org.assertj:assertj-core:3.27.6 (1 constraints: 4405543b)
+org.assertj:assertj-core:3.27.7 (1 constraints: 4505553b)
 
 org.jspecify:jspecify:1.0.0 (6 constraints: 4166fe65)
 
