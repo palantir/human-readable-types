@@ -1,6 +1,6 @@
 # Run ./gradlew writeVersionsLocks to regenerate this file. Blank lines are to minimize merge conflicts.
 
-com.fasterxml.jackson.core:jackson-annotations:2.20 (2 constraints: fd163324)
+com.fasterxml.jackson.core:jackson-annotations:2.21 (2 constraints: ff166824)
 
 com.google.errorprone:error_prone_annotations:2.10.0 (1 constraints: 041129c0)
 
@@ -14,9 +14,9 @@ org.jetbrains:annotations:26.0.2 (1 constraints: 36116fd1)
 
 [Test dependencies]
 
-com.fasterxml.jackson.core:jackson-core:2.20.1 (1 constraints: 85123121)
+com.fasterxml.jackson.core:jackson-core:2.21.0 (1 constraints: 85123321)
 
-com.fasterxml.jackson.core:jackson-databind:2.20.1 (1 constraints: 3705343b)
+com.fasterxml.jackson.core:jackson-databind:2.21.0 (1 constraints: 3705363b)
 
 net.bytebuddy:byte-buddy:1.18.3 (1 constraints: 530b55df)
 
