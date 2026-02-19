@@ -4,11 +4,11 @@ com.fasterxml.jackson.core:jackson-annotations:2.21 (2 constraints: ff166824)
 
 com.google.errorprone:error_prone_annotations:2.10.0 (1 constraints: 041129c0)
 
-com.palantir.safe-logging:preconditions:3.11.0 (1 constraints: 3705383b)
+com.palantir.safe-logging:preconditions:3.12.0 (1 constraints: 38053b3b)
 
-com.palantir.safe-logging:safe-logging:3.11.0 (1 constraints: 31115ad1)
+com.palantir.safe-logging:safe-logging:3.12.0 (1 constraints: 32115dd1)
 
-org.jetbrains:annotations:26.0.2 (1 constraints: 36116fd1)
+org.jetbrains:annotations:26.1.0 (1 constraints: 351170d1)
 
 
 
