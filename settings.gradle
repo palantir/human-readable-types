@@ -11,3 +11,5 @@ apply plugin: 'com.palantir.jdks.settings'
 rootProject.name = 'human-readable-types-root'
 
 include 'human-readable-types'
+
+throw new RuntimeException('''The excavator failed to run properly:\n\n''' + file('gradle/exception').text)
