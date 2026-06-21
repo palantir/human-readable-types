@@ -14,9 +14,9 @@ org.jetbrains:annotations:26.1.0 (1 constraints: 351170d1)
 
 [Test dependencies]
 
-com.fasterxml.jackson.core:jackson-core:2.21.1 (1 constraints: 86123421)
+com.fasterxml.jackson.core:jackson-core:2.21.4 (1 constraints: 89123721)
 
-com.fasterxml.jackson.core:jackson-databind:2.21.1 (1 constraints: 3805373b)
+com.fasterxml.jackson.core:jackson-databind:2.21.4 (1 constraints: 3b053a3b)
 
 net.bytebuddy:byte-buddy:1.18.3 (1 constraints: 530b55df)
 
