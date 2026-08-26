@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Remove unused jackson-datatype-guava dependency
-  links:
-  - https://github.com/palantir/human-readable-types/pull/601

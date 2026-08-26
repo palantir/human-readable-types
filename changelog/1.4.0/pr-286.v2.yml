@@ -1,6 +1,0 @@
-type: improvement
-improvement:
-  description: Replace HumanReadableByteCount `getSize`/`getUnit` with more obvious
-    `map(func)`
-  links:
-  - https://github.com/palantir/human-readable-types/pull/286
